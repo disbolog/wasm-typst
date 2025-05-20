@@ -1,0 +1,29 @@
+[package]
+name = "gantt-purely-rust"
+version = "0.1.0"
+edition = "2024"
+description = "A pure Rust library for creating Gantt-style timeline visualizations"
+license = "MIT"
+
+[lib]
+name = "gantt_purely_rust"
+path = "src/lib.rs"
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "gantt-purely-rust"
+path = "src/main.rs"
+
+[dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+indoc = "2"
+serde = { version = "1.0", features = ["derive"] }
+ciborium = "0.2.1"
+wasm-minimal-protocol = { git = "https://github.com/astrale-sharp/wasm-minimal-protocol.git" }
+
+[profile.release]
+lto = true          # Enable link-time optimization
+strip = true        # Strip symbols from binary
+opt-level = 'z'     # Optimize for size
+codegen-units = 1   # Reduce number of codegen units to increase optimizations
+panic = 'abort'     # Abort on panic
